@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Sign Up</h1>
-    <form @submit.prevent="Signup">
+    <form @submit.prevent="signUp">
       <input type="text" placeholder="name" v-model="name" />
       <input type="email" placeholder="email" v-model="email" />
       <input type="password" placeholder="password" v-model="password" />
@@ -11,16 +11,19 @@
 </template>
 
 <script>
-import {ref} from"vue"
+import {ref} from "vue"
+import useSignup from "../composables/useSignup"
 export default {
   setup() {
     let name = ref("");
     let password = ref("");
     let email = ref("");
-    let Signup = () => {
-      console.log("Signup");
+    let {error,createAccount} = useSignup();
+    let signUp = async () => {
+        let res = await createAccount(name.value,email.value,password.value);
+        console.log(res);
     };
-    return { name, password, email, Signup };
+    return { name, password, email, signUp ,error};
   },
 };
 </script>

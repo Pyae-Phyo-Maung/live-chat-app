@@ -10,14 +10,15 @@
 </template>
 
 <script>
+import {ref} from 'vue'
 export default {
   setup() {
     let password = ref("");
     let email = ref("");
     let Login = () => {
-      console.log("Signup");
+      console.log("Login");
     };
-    return { password, email, Signup };
+    return { password, email, Login };
   },
 };
 </script>

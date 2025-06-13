@@ -1,6 +1,7 @@
 import firebase from "firebase/app"
 import "firebase/firestore"
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import "firebase/auth"
+
 const firebaseConfig = {
   apiKey: "AIzaSyAspBK9CnsN3moseNq1SsN7O0VMWYkr-j0",
   authDomain: "live-chat-8ac38.firebaseapp.com",
@@ -12,6 +13,9 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-let db=firebase.firestore();
-let timestamp=firebase.firestore.FieldValue.ServerTimestamp;
-export {db,timestamp}
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
+export { firebase, auth, db, timestamp };
