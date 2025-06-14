@@ -1,23 +1,22 @@
-import { ref } from 'vue';
-import { auth }  from '../firebase/config';
+import { ref } from "vue";
+import {auth} from "../firebase/config"
+let error=ref(null);//The email address is already in use by another account
 
-let error = ref(null);
+let createAccount=async(email,password,displayName)=>{
+    try{
+        let res=await auth.createUserWithEmailAndPassword(email,password)
+        if(!res){
+            throw new Error("could not create new user")
+        }
+      res.user.updateProfile({displayName})
+     return res;
+   }catch(err){
+       error.value=err.message;
+   }
+}
+let useSignup=()=>{
 
-let createAccount = async (name, email, password) => {
-  error.value = null;
-
-  try {
-    const res = await auth.createUserWithEmailAndPassword(email, password);
-    await res.user.updateProfile({ displayName: name });
-    return res;
-  } catch (err) {
-    error.value = err.message;
-    console.log(error.value);
-  }
-};
-
-let useSignup = () => {
-  return { error, createAccount };
-};
+    return {error,createAccount};
+}
 
 export default useSignup;
